@@ -17,7 +17,7 @@ interface ImageItem {
     uploadDate: Date;
 }
 
-export default function Home() {
+export default function Page() {
     const [images, setImages] = React.useState<ImageItem[]>([]);
 
     const pickImage = async () => {
@@ -58,7 +58,7 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
-            <Text>Upload image</Text>
+            <Text>Upload image local</Text>
             <Button title="Upload" onPress={pickImage} />
             <ScrollView style={styles.gallery}>
                 {images.map((img, index) => (
