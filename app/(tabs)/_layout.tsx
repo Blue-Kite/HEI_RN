@@ -1,5 +1,4 @@
 import { Tabs, Link } from 'expo-router';
-import { Pressable, Text } from 'react-native';
 
 export default function TabLayout() {
     return (
