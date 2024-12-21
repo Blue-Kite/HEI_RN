@@ -14,6 +14,8 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.717.0",
+    "@aws-sdk/s3-request-presigner": "^3.717.0",
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/native": "^7.0.0",
     "expo": "~52.0.20",
