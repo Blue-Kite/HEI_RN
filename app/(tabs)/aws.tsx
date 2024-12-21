@@ -7,25 +7,12 @@ import React from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Image } from 'expo-image';
-
-const s3Client = new S3Client({
-    region: process.env.EXPO_PUBLIC_AWS_REGION as string,
-    credentials: {
-        accessKeyId: process.env.EXPO_PUBLIC_AWS_ACCESS_KEY_ID as string,
-        secretAccessKey: process.env
-            .EXPO_PUBLIC_AWS_SECRET_ACCESS_KEY as string,
-    },
-});
-
-interface ImageItem {
-    uri: string;
-    fileName: string;
-    fileSize: number;
-    uploadDate: Date;
-}
+import { s3Client } from '@/constants/s3Client';
+import { formatFileSize } from '@/utils/formatFileSize';
+import { ImageType } from '@/types/ImageType';
 
 export default function Page() {
-    const [images, setImages] = React.useState<ImageItem[]>([]);
+    const [images, setImages] = React.useState<ImageType[]>([]);
 
     const fetchImages = async () => {
         try {
@@ -52,7 +39,7 @@ export default function Page() {
                                 fileName: item.Key,
                                 fileSize: item.Size || 0,
                                 uploadDate: item.LastModified || new Date(),
-                            } as ImageItem;
+                            } as ImageType;
                         }
                         return null;
                     })
@@ -60,21 +47,13 @@ export default function Page() {
 
                 setImages(
                     imageItems.filter(
-                        (item): item is ImageItem => item !== null
+                        (item): item is ImageType => item !== null
                     )
                 );
             }
         } catch (error) {
             alert('이미지 목록을 가져오는데 실패했습니다.');
         }
-    };
-
-    const formatFileSize = (bytes: number) => {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     };
 
     React.useEffect(() => {

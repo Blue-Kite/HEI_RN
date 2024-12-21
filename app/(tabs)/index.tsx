@@ -9,16 +9,11 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'expo-image';
-
-interface ImageItem {
-    uri: string;
-    fileName: string;
-    fileSize: number;
-    uploadDate: Date;
-}
+import { formatFileSize } from '@/utils/formatFileSize';
+import { ImageType } from '@/types/ImageType';
 
 export default function Page() {
-    const [images, setImages] = React.useState<ImageItem[]>([]);
+    const [images, setImages] = React.useState<ImageType[]>([]);
 
     const pickImage = async () => {
         if (Platform.OS !== 'web') {
@@ -46,14 +41,6 @@ export default function Page() {
 
             setImages((prev) => [...prev, newImage]);
         }
-    };
-
-    const formatFileSize = (bytes: number) => {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     };
 
     return (
