@@ -25,21 +25,26 @@ export default function Page() {
             }
         }
 
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ['images'],
-            aspect: [4, 3],
-            quality: 1,
-        });
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ['images'],
+                aspect: [4, 3],
+                quality: 1,
+            });
 
-        if (!result.canceled && result.assets.length > 0) {
-            const newImage = {
-                uri: result.assets[0].uri,
-                fileName: result.assets[0].fileName || '파일이름 없음',
-                fileSize: result.assets[0].fileSize || 0,
-                uploadDate: new Date(),
-            };
+            if (!result.canceled && result.assets.length > 0) {
+                const newImage = {
+                    uri: result.assets[0].uri,
+                    fileName: result.assets[0].fileName || '파일이름 없음',
+                    fileSize: result.assets[0].fileSize || 0,
+                    uploadDate: new Date(),
+                };
 
-            setImages((prev) => [...prev, newImage]);
+                setImages((prev) => [...prev, newImage]);
+                console.log('이미지 업로드 성공');
+            }
+        } catch (error) {
+            console.log('이미지 업로드 에러 발생:', error);
         }
     };
 
