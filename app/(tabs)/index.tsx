@@ -53,26 +53,28 @@ export default function Page() {
             <Text>Upload image local</Text>
             <Button title="Upload" onPress={pickImage} />
             <ScrollView style={styles.gallery}>
-                {images.map((img, index) => (
-                    <View key={index} style={styles.imageContainer}>
-                        <Image
-                            source={{ uri: img.uri }}
-                            style={styles.image}
-                            contentFit="cover"
-                        />
-                        <View style={styles.imageInfo}>
-                            <Text style={styles.infoText}>
-                                파일명: {img.fileName}
-                            </Text>
-                            <Text style={styles.infoText}>
-                                크기: {formatFileSize(img.fileSize)}
-                            </Text>
-                            <Text style={styles.infoText}>
-                                업로드: {img.uploadDate.toLocaleDateString()}
-                            </Text>
+                {images &&
+                    images.map((img, index) => (
+                        <View key={index} style={styles.imageContainer}>
+                            <Image
+                                source={{ uri: img.uri }}
+                                style={styles.image}
+                                contentFit="cover"
+                            />
+                            <View style={styles.imageInfo}>
+                                <Text style={styles.infoText}>
+                                    파일명: {img.fileName}
+                                </Text>
+                                <Text style={styles.infoText}>
+                                    크기: {formatFileSize(img.fileSize)}
+                                </Text>
+                                <Text style={styles.infoText}>
+                                    업로드:{' '}
+                                    {img.uploadDate.toLocaleDateString()}
+                                </Text>
+                            </View>
                         </View>
-                    </View>
-                ))}
+                    ))}
             </ScrollView>
         </View>
     );
