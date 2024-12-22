@@ -13,3 +13,5 @@ yarn
 ```bash
 yarn start
 ```
+
+##구성 및 선정 이유

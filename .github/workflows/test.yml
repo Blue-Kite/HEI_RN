@@ -1,32 +1,32 @@
 name: 'test project'
 
 on:
-    push:
-        branches:
-            - '*'
+  push:
+    branches:
+      - '*'
 
 jobs:
-    test-project:
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout repository
-              uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
+  test-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
 
-            - name: cache dependencies
-              uses: actions/cache@v3
-              id: cache
-              with:
-                  path: '**/node_modules'
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+      - name: cache dependencies
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
-            - name: install packages
-              if: steps.cache.outputs.cache-hit != 'true'
-              run: yarn install --frozen-lockfile
+      - name: install packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
 
-            - name: run test
-              run: yarn test --watchAll=false
+      - name: run test
+        run: yarn test --watchAll=false
