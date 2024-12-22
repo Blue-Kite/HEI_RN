@@ -88,7 +88,7 @@ describe('이미지 업로드 실패 테스트', () => {
 
     test('실패 메시지 출력 테스트', async () => {
         const consoleSpy = jest.spyOn(console, 'log');
-        const { getByText, findByText } = render(<Home />);
+        const { getByText } = render(<Home />);
         const uploadButton = getByText('Upload');
         fireEvent.press(uploadButton);
 
