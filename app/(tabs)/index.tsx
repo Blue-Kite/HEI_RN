@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    Button,
-    Platform,
-    ScrollView,
-} from 'react-native';
+import { View, Text, Button, Platform, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'expo-image';
 import { formatFileSize } from '@/utils/formatFileSize';
 import { ImageType } from '@/types/ImageType';
+import { CommonStyled } from '@/components/CommonStyled';
 
 export default function Page() {
     const [images, setImages] = React.useState<ImageType[]>([]);
@@ -49,26 +43,26 @@ export default function Page() {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={CommonStyled.container}>
             <Text>Upload image local</Text>
             <Button title="Upload" onPress={pickImage} />
-            <ScrollView style={styles.gallery}>
+            <ScrollView style={CommonStyled.gallery}>
                 {images &&
                     images.map((img, index) => (
-                        <View key={index} style={styles.imageContainer}>
+                        <View key={index} style={CommonStyled.imageContainer}>
                             <Image
                                 source={{ uri: img.uri }}
-                                style={styles.image}
+                                style={CommonStyled.image}
                                 contentFit="cover"
                             />
-                            <View style={styles.imageInfo}>
-                                <Text style={styles.infoText}>
+                            <View style={CommonStyled.imageInfo}>
+                                <Text style={CommonStyled.infoText}>
                                     파일명: {img.fileName}
                                 </Text>
-                                <Text style={styles.infoText}>
+                                <Text style={CommonStyled.infoText}>
                                     크기: {formatFileSize(img.fileSize)}
                                 </Text>
-                                <Text style={styles.infoText}>
+                                <Text style={CommonStyled.infoText}>
                                     업로드:{' '}
                                     {img.uploadDate.toLocaleDateString()}
                                 </Text>
@@ -79,29 +73,3 @@ export default function Page() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    gallery: {
-        width: '100%',
-    },
-    imageContainer: {
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        borderRadius: 10,
-    },
-    image: {
-        width: 400,
-        height: 300,
-    },
-    imageInfo: {
-        padding: 10,
-    },
-    infoText: {
-        fontSize: 14,
-    },
-});
