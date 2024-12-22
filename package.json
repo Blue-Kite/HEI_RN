@@ -7,7 +7,7 @@
         "android": "expo start --android",
         "ios": "expo start --ios",
         "web": "expo start --web",
-        "test": "jest --watchAll=false",
+        "test": "jest --watchAll",
         "lint": "eslint ."
     },
     "jest": {
@@ -22,6 +22,7 @@
         "@expo/vector-icons": "^14.0.2",
         "@react-navigation/native": "^7.0.0",
         "expo": "~52.0.20",
+        "expo-file-system": "~18.0.6",
         "expo-font": "~13.0.2",
         "expo-image": "~2.0.3",
         "expo-image-picker": "~16.0.3",
