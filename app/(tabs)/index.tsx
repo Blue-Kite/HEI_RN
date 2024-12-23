@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, Platform, ScrollView } from 'react-native';
+import { View, Text, Button, Platform, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'expo-image';
 import { formatFileSize } from '@/utils/formatFileSize';
@@ -13,7 +13,7 @@ export default function Page() {
     if (Platform.OS !== 'web') {
       const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!permission.granted) {
-        alert('사진첩 권한이 필요합니다.');
+        Alert.alert('사진첩 권한이 필요합니다.');
         return;
       }
     }
